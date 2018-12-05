@@ -1,7 +1,6 @@
 <?php
 $str = "adsaasds545 dsaddasda1231 23123";
-$exploded_str = explode($str, ' ');
-var_dump($exploded_str);
+$exploded_str = explode(" ", $str );
 foreach ($exploded_str as $item){
     $sum = 0;
     $str_ary = str_split($item,1);
