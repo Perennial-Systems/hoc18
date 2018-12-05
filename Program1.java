@@ -16,8 +16,10 @@ public class Program1 {
           }else{
         	  findPrimes(++a,b);
           }
+      }else{
+          findPrimes(++a,b);
       }
-      return findPrimes(++a,b);
+      return 0;
   }
   public static boolean isPrime(long x, long i){
  if(x==1 && x==2){
