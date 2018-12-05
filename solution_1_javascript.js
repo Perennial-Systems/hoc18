@@ -9,7 +9,7 @@ function prime(x, y) {
     }
 
     if (!y || !x) {
-        console.log('any of should not be zero')
+        console.log(' any of should not be zero')
         return;
     }
 

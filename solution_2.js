@@ -1,5 +1,11 @@
-function decode (str){
-    let intArray=Array.from(str).filter(a=>isNaN(parseInt(a,0)));
-    return intArray.map(m=>String.fromCharCode(96+m)).join()
+const str = "aWk60#ase2> o_0^4alis5L"
+        const myChars = str.split('')
 
-}
+        let numbers = myChars.filter( (char) => {
+            const isNumber = isNaN(char) == false
+            if (isNumber == true) {
+                return String.fromCharCode(97 + n)
+            }             
+        })        
+        
+            console.log("String is: ", numbers.toString());
