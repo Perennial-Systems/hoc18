@@ -37,7 +37,7 @@ public class Problem1 {
 		int end = 20;
 
 		try {
-			System.out.println("Enter first number:");
+			System.out.println("Enter Starting number:");
 			start = Integer.parseInt(dis.readLine());
 
 			System.out.println("Enter last number:");
