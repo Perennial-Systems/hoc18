@@ -1,5 +1,5 @@
 <?php
-$str = "adsaasds545 dsaddasda1231 2312399999999999";
+$str = "aWk60#ase2> o_2^293alis874L";
 $exploded_str = explode(" ", $str );
 foreach ($exploded_str as $item){
     $sum = 0;
@@ -11,10 +11,10 @@ foreach ($exploded_str as $item){
     }
 
     if($sum > 26){
-        $sum = $sum % 26;
+        $sum = ($sum % 26);
     }
 
-    var_dump($sum);
+    echo chr(($sum-1)+65);
 }
 
 ?>
