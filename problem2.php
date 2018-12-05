@@ -1,5 +1,5 @@
 <?php
-$str = "adsaasds545 dsaddasda1231 23123";
+$str = "adsaasds545 dsaddasda1231 2312399999999999";
 $exploded_str = explode(" ", $str );
 foreach ($exploded_str as $item){
     $sum = 0;
@@ -9,6 +9,11 @@ foreach ($exploded_str as $item){
             $sum+= $val;
         }
     }
+
+    if($sum > 26){
+        $sum = $sum % 26;
+    }
+
     var_dump($sum);
 }
 
