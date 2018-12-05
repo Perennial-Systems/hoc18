@@ -9,11 +9,12 @@ import (
 func main() {
 	line := "aWk60#ase2> o_2^293alis874L"
 	words :=strings.Split(line," ")
-
-	char1 := getTotal(words[0])
-	char2 := getTotal(words[1])
-	str := string(char1)+string(char2)
-	fmt.Printf("%s",str)
+	var resStr string
+	for _,word:=range words{
+		char:=getTotal(word)
+		resStr=resStr+string(char)
+	}
+	fmt.Printf("%s",resStr)
 }
 
 func getTotal(word string)(res int){
