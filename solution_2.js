@@ -4,7 +4,7 @@ const str = "aWk60#ase2> o_0^4alis5L"
         let numbers = myChars.filter( (char) => {
             const isNumber = isNaN(char) == false
             if (isNumber == true) {
-                return String.fromCharCode(97 + n)
+                return String.fromCharCode(97 + parseInt(char));
             }             
         })        
         
