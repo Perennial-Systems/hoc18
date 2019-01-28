@@ -1,0 +1,166 @@
+<html>
+
+<head>
+
+    <script>
+        let encodedstring='';
+        let decodedstring='';
+        let count = 0;
+        let base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        function encode() {
+            //alert(typeof (document.getElementById("encodeinput").value));
+            let output = [];
+            let xyz = '';
+            let input = document.getElementById("enteredinput").value;
+            let encodedarray = [];
+            //let input = 'Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure.';
+            output.value = "";
+            for (i = 0; i < input.length; i++) {
+                // output[i] = input[i].charCodeAt(0).toString(2) + " ";
+                output[i] = input[i].charCodeAt(0).toString(2);
+                console.log('output',output[i]);
+
+                //append wala code
+                for (let j = output[i].length; j != 8 && j < 9; j++) {
+                    output[i] = 0 + output[i];
+                    console.log(output[i]);
+                }
+
+                //append karne ke baad merge bhi kar liya
+                //console.log(output[i]);
+                // xyz = xyz + output[i].split(' ');
+                xyz = xyz + output[i];
+                //  console.log(xyz);
+            }
+        
+            xyz = xyz.match(/.{1,6}/g);
+            if (xyz[xyz.length - 1].length < 6) {
+                //console.log(xyz[xyz.length - 1]);
+                for (let i = xyz[xyz.length - 1].length; i != 6; i++) {
+                    xyz[xyz.length - 1] = xyz[xyz.length - 1] + '0';
+                    console.log(xyz[xyz.length - 1]);
+                    count++;
+                }
+            }
+            for (i = 0; i < xyz.length; i++) {
+               // console.log(base64[parseInt(xyz[i], 2)]);
+                encodedarray[i]=base64[parseInt(xyz[i], 2)];
+            }
+            // console.log(xyz[xyz.length - 1]);
+            // console.log(xyz.length);
+            // console.log(xyz.length % 4);
+            let temp;
+            switch(xyz.length % 4)
+            {
+                case 1: temp = xyz.length;
+                        encodedarray[temp]="=";
+                        temp++;
+                        encodedarray[temp]="=";
+                        temp++;
+                        encodedarray[temp]="=";
+                        break;
+                case 2:
+                        temp = xyz.length;
+                        encodedarray[temp]="=";
+                        temp++;
+                        encodedarray[temp]="=";
+                        break;
+                case 3:
+                        temp = xyz.length;
+                        encodedarray[temp]="=";
+                        break;
+
+                default:
+
+
+
+            }
+            //console.log(encodedarray);
+            document.getElementById("encodedinput").value = encodedarray.join();
+            document.getElementById("zeroinput").value = count;
+            //alert(binary_converted);
+            encodedstring=encodedarray;
+        }
+
+        function decode()
+        {
+            // decoding - type 1
+            // var result = "";
+		    // var arr = binary_converted.match(/.{1,8}/g);
+		    // for (var i = 0; i < arr.length; i++) {
+			//     result += String.fromCharCode(parseInt(arr[i], 2).toString(10));
+		    // }
+            // alert(result);
+            console.log(encodedstring);
+            let index_of_base64char=[];
+            for(let i=0;i<encodedstring.length;i++)
+            {
+                if(encodedstring[i]!=="=")
+                {
+                    for(let j=0;j<base64.length;j++)
+                    {
+                        if(encodedstring[i]===base64[j])
+                        {
+                            console.log(encodedstring[i]);
+                            index_of_base64char[i]=j;
+                            index_of_base64char[i]=(index_of_base64char[i] >>> 0).toString(2);
+
+                            for (let j = index_of_base64char[i].length; j != 6 && j < 7; j++) 
+                            {
+                                    index_of_base64char[i] = 0 + index_of_base64char[i];
+                                    console.log('appended output',index_of_base64char[i]);
+                            }
+                            decodedstring = decodedstring + index_of_base64char[i];
+                        }
+
+                    }
+                
+                }
+            }
+            console.log(index_of_base64char);
+            decodedstring = decodedstring.match(/.{1,8}/g);
+            console.log(decodedstring);
+            let newString='';
+            for(let i=0;i<=decodedstring.length-1;i++)
+            {
+                //console.log(parseInt(decodedstring[i],2).toString(10));
+                if(parseInt(decodedstring[i],2).toString(10)!=='0')
+                {
+                    newString=newString + (String.fromCharCode(parseInt(decodedstring[i],2)).toString(10));   
+                }
+                //newString=newString + (String.fromCharCode(parseInt(decodedstring[i],2)).toString(10));
+            }
+            document.getElementById("decodedinput").value=newString;
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <div>
+        <label>Entered Text</label>
+        <textarea name="message" id="enteredinput" rows="10" cols="30"></textarea>
+        <button onclick="encode()">
+            encode
+        </button>
+        <label>Encoded Text</label>
+        <textarea name="message" id="encodedinput" rows="10" cols="30"></textarea>
+        <button onclick="decode()">
+            decode
+        </button>
+        <label>Decoded Text</label>
+        <textarea name="message" id="decodedinput" rows="10" cols="30"></textarea>
+    </div>
+
+    <div>
+        
+    </div>
+    <div>
+        <label>Number of 0s appended:</label>
+        <input type="text" id="zeroinput">
+        </div>
+        <label>Please refresh page before entering other value</label>
+</body>
+
+</html>
