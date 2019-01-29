@@ -28,6 +28,7 @@ class Decoding {
 
             }
         }
+        
         return this.decimalToBinary(this.dummyArray);
     }
 
@@ -60,15 +61,15 @@ class Decoding {
             for (let j = i; j <= i + 7; j++) {
                 bits += binary.charAt(j);
             }
-
+            
             this.dummyArray.push(bits);
         }
-
+        
         //last element of the array is checked to be a "00" or "0000" and is popped from the array
-        if (this.dummyArray[this.dummyArray.length - 1].length % 3 != 0) {
+        if (this.dummyArray[this.dummyArray.length - 1].length !== 8) {
             this.dummyArray.pop(this.dummyArray[this.dummyArray.length - 1]);
         }
-
+        
         return this.binaryToText(this.dummyArray);
     }
 
