@@ -5,26 +5,28 @@ class Decoding {
 
     //Method to store the base64 equivalent decimal values of the encoded characters into an empty array
     baseToDecimal(str) {
-        console.log(str);
         let base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-        let dummyArray = [];
+        this.dummyArray = [];
+        let secondLastCharacter = str[str.length - 2];
+        let lastCharacter = str[str.length - 1];
 
-        if (str[str.length - 2] === "=") {  //incase there are 2 "=" characters in the padding
-            for (let i = 0; i < (str.length - 2); i++) {
 
-                this.dummyArray.push(base64.indexOf(str[i]));
+        if (secondLastCharacter === "=") {  //incase there are 2 "=" characters in the padding
+            for (let char = 0; char < (str.length - 2); char++) {
+
+                this.dummyArray.push(base64.indexOf(str[char]));
 
             }
-        } else if (str[str.length - 1] === "=") {   //incase there is a single "=" character in the padding
-            for (let i = 0; i < (str.length - 1); i++) {
+        } else if (lastCharacter === "=") {   //incase there is a single "=" character in the padding
+            for (let char = 0; char < (str.length - 1); char++) {
 
-                this.dummyArray.push(base64.indexOf(str[i]));
+                this.dummyArray.push(base64.indexOf(str[char]));
 
             }
         } else {
-            for (let i = 0; i < (str.length); i++) {  //incase there is a none "=" character in the padding
+            for (let char = 0; char < (str.length); char++) {  //incase there is no "=" character in the padding
 
-                this.dummyArray.push(base64.indexOf(str[i]));
+                this.dummyArray.push(base64.indexOf(str[char]));
 
             }
         }
@@ -37,15 +39,16 @@ class Decoding {
     decimalToBinary(arr) {
         this.dummyArray = [];
         let binary = '';
+        let byte = 6;
 
-        for (let i = 0; i < arr.length; i++) {
-            this.dummyArray.push(arr[i].toString(2));
+        for (let decimal = 0; decimal < arr.length; decimal++) {
+            this.dummyArray.push(arr[decimal].toString(2));
 
-            for (let j = this.dummyArray[i].length; j != 6 && j < 7; j++) {
-                this.dummyArray[i] = "0" + this.dummyArray[i];
+            for (let decLength = this.dummyArray[decimal].length; decLength != byte && decLength < (byte+1); decLength++) {
+                this.dummyArray[decimal] = "0" + this.dummyArray[decimal];
             }
 
-            binary += this.dummyArray[i];
+            binary += this.dummyArray[decimal];
         }
 
         return this.binarySet(binary);
@@ -55,19 +58,23 @@ class Decoding {
     //6-Bit Binary Sets are eventually converted into 8-bit Binary sets
     binarySet(binary) {
         this.dummyArray = [];
-        for (let i = 0; i < binary.length; i += 8) {
+        let byte = 8;
+        let lastArrElement;
+        for (let bit = 0; bit < binary.length; bit += byte) {
             let bits = '';
 
-            for (let j = i; j <= i + 7; j++) {
-                bits += binary.charAt(j);
+            for (let num = bit; num <= bit + (byte-1); num++) {
+                bits += binary.charAt(num);
             }
             
             this.dummyArray.push(bits);
         }
-        
+
+        lastArrElement = this.dummyArray[this.dummyArray.length - 1];
+
         //last element of the array is checked to be a "00" or "0000" and is popped from the array
-        if (this.dummyArray[this.dummyArray.length - 1].length !== 8) {
-            this.dummyArray.pop(this.dummyArray[this.dummyArray.length - 1]);
+        if (lastArrElement.length !== byte) {
+            this.dummyArray.pop(lastArrElement);
         }
         
         return this.binaryToText(this.dummyArray);
@@ -82,7 +89,6 @@ class Decoding {
             let hex = parseInt(element, 2).toString(16)
             decodedText += (String.fromCharCode(parseInt(hex, 16)));
         }
-        console.log(decodedText);
         return decodedText;
     }
 }

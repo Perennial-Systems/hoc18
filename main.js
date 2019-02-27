@@ -6,9 +6,8 @@ class Encoding {
 
     // Method to store the ASCII values of each character of the input string into an Array
     textToAscii(str) {
-        console.log(str);
-        for (let i = 0; i < str.length; i++) {
-            this.strArrray.push(str[i].charCodeAt(0)); //why 0 ??
+        for (let index = 0; index < str.length; index++) {
+            this.strArrray.push(str[index].charCodeAt(0)); //why 0 ??
         }
 
         return this.asciiToHex(this.strArrray);
@@ -41,12 +40,13 @@ class Encoding {
 
     //Method to make sextets out of octets stored as a binary string
     binaryCheck(binary) {
-
+        let byte = 6;
         let binArray = [];
-        for (let i = 0; i < binary.length; i += 6) {
+
+        for (let index = 0; index < binary.length; index += byte) {
             let bits = '';
-            for (let j = i; j <= i + 5; j++) {
-                bits += binary.charAt(j);
+            for (let num = index; num <= index + (byte-1); num++) {
+                bits += binary.charAt(num);
             }
 
             binArray.push(bits);
@@ -63,8 +63,8 @@ class Encoding {
 
         //In case the least significant bits are not the multiples of 3, so hey are made explicitly by 
         //concatenating "00" at the end as per requirement
-        if (arr[arr.length - 1].length % 3 != 0) {
-            for (let i = 0; i < rem; i++) {
+        if (rem != 0) {
+            for (let index = 0; index < rem; index++) {
                 arr[arr.length - 1] += "00";
                 this.count++;
             }
@@ -78,27 +78,30 @@ class Encoding {
         return this.decimalToBase(this.strArrray);
     }
 
-    //Method to get base64 characters based on the decimal values
+    //Method to get base64_String characters based on the decimal values
     decimalToBase(arr) {
-        //a demo string is taken that represents the typical Base64 Table characters
-        let base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        //a demo string is taken that represents the typical base64_String Table characters
+        let baseString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
         let code = "";
+        let baseStringLength = 64;
+        let padding = '';
 
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i] > 63) {
-                code += base64.charAt(arr[i % 64]); //incase the decimal value exceeds 63
+        for (let index = 0; index < arr.length; index++) {
+            if (arr[index] > (baseStringLength-1)) {
+                code += baseString.charAt(arr[index % baseStringLength]); //incase the decimal value exceeds 63
             } else {
-                code += base64.charAt(arr[i]);
+                code += baseString.charAt(arr[index]);
             }
         }
 
         //count is used to figure out how many "=" characters are needed to be padded at the end of code
         if (this.count == 1) {
-            code += "=";
+            padding = "=";
+            code += padding;
         } else if (this.count == 2) {
-            code += "==";
+            padding = "=="
+            code += padding;
         }
-        console.log(code);
         return code;
     }
 }
