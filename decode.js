@@ -5,26 +5,27 @@ class Decoding {
 
     //Method to store the base64 equivalent decimal values of the encoded characters into an empty array
     baseToDecimal(str) {
-        let base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        const base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
         this.dummyArray = [];
-        let secondLastCharacter = str[str.length - 2];
-        let lastCharacter = str[str.length - 1];
-
+        const stringLength = str.length;
+        let secondLastCharacter = str[stringLength - 2];
+        let lastCharacter = str[stringLength- 1];
+        
 
         if (secondLastCharacter === "=") {  //incase there are 2 "=" characters in the padding
-            for (let char = 0; char < (str.length - 2); char++) {
+            for (let char = 0; char < (stringLength - 2); char++) {
 
                 this.dummyArray.push(base64.indexOf(str[char]));
 
             }
         } else if (lastCharacter === "=") {   //incase there is a single "=" character in the padding
-            for (let char = 0; char < (str.length - 1); char++) {
+            for (let char = 0; char < (stringLength - 1); char++) {
 
                 this.dummyArray.push(base64.indexOf(str[char]));
 
             }
         } else {
-            for (let char = 0; char < (str.length); char++) {  //incase there is no "=" character in the padding
+            for (let char = 0; char < (stringLength); char++) {  //incase there is no "=" character in the padding
 
                 this.dummyArray.push(base64.indexOf(str[char]));
 
@@ -41,14 +42,14 @@ class Decoding {
         let binary = '';
         let byte = 6;
 
-        for (let decimal = 0; decimal < arr.length; decimal++) {
-            this.dummyArray.push(arr[decimal].toString(2));
+        for (let index = 0; index < arr.length; index++) {
+            this.dummyArray.push(arr[index].toString(2));
 
-            for (let decLength = this.dummyArray[decimal].length; decLength != byte && decLength < (byte+1); decLength++) {
-                this.dummyArray[decimal] = "0" + this.dummyArray[decimal];
+            for (let decLength = this.dummyArray[index].length; decLength != byte && decLength < (byte+1); decLength++) {
+                this.dummyArray[index] = "0" + this.dummyArray[index];
             }
 
-            binary += this.dummyArray[decimal];
+            binary += this.dummyArray[index];
         }
 
         return this.binarySet(binary);
