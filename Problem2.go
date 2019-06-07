@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+
 	typed := "aWk60#ase2> o_0^4alis5L" //Hardcoded can be removed by removing following commented statements
 	//fmt.Println("Enter the encoded string:")
 	//fmt.Scan(&typed)
