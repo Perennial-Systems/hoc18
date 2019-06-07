@@ -15,6 +15,9 @@ func main() {
 
 	for i := 0; i < len(brokenTyped); i++ {
 		j := decode(brokenTyped[i])
+
+		j = j % 26 // this is to loop back if value > 26
+
 		if j == 0 {
 			j = 32
 		} else {
