@@ -8,9 +8,7 @@ func main() {
 	fmt.Scan(&num1, &num2)
 	fmt.Print("Prime numbers are: ")
 
-	for i := num1; i <= num2; i++ {
-		primeNo(i, i/2)
-	}
+	rng(num1, num2)
 }
 
 func primeNo(i, j int) {
@@ -23,5 +21,11 @@ func primeNo(i, j int) {
 			primeNo(i, j-1)
 		}
 	}
+}
 
+func rng(num1, num2 int) {
+	if num1 <= num2 {
+		primeNo(num1, num1/2)
+		rng(num1+1, num2)
+	}
 }
