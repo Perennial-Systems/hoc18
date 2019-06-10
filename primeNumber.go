@@ -5,26 +5,31 @@ import "fmt"
 func main() {
 	var i, f int
 	fmt.Println("Enter the Range")
-	fmt.Scanf("%d%d", &i, &f)
-	print(i, f)
+	_, _ = fmt.Scan(&i, &f)
+	print(2, 6)
 }
 
 func print(i int, f int) {
 
+check1:
 	if i <= f {
 		var num, fact, k int
 		num = i
 		fact = 0
 		k = 2
+	check:
 		if k <= (num / 2) {
 			if num%k == 0 {
 				fact++
-				k++
 			}
-			i++
-			if fact >= 1 {
-				fmt.Println(i)
-			}
+			k++
+			goto check
 		}
+		if fact == 0 {
+			fmt.Println(i)
+		}
+
+		i++
+		goto check1
 	}
 }
