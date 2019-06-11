@@ -7,8 +7,8 @@ import (
 
 func main() {
 
-	typed := "aWk60#ase2> o_0^4alis5L" //Hardcoded can be removed by removing following commented statements
-	//fmt.Println("Enter the encoded string:")
+	typed := "aWk999#ase> o_0^4alis5L" //Hardcoded can be removed by removing following commented statements
+	//fmt.Println("Enter the encoded string:x")
 	//fmt.Scan(&typed)
 
 	brokenTyped := strings.Fields(typed)
@@ -16,7 +16,7 @@ func main() {
 	for i := 0; i < len(brokenTyped); i++ {
 		j := decode(brokenTyped[i])
 
-		j = j % 26 // this is to loop back if value > 26
+		j = j%26 // this is to loop back if value > 26
 
 		if j == 0 {
 			j = 32
