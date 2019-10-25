@@ -56,6 +56,41 @@ func encode64() string {
 }
 
 func decode64() string {
+	m := make(map[string]string)
+	m["000000"] = "A"
+	m["000001"] = "B"
+	m["000010"] = "C"
+	m["000011"] = "D"
+	m["000100"] = "E"
+	m["000101"] = "F"
+	m["000110"] = "G"
+	m["000111"] = "H"
+	m["001000"] = "I"
+	m["001001"] = "J"
+	m["001010"] = "K"
+	m["001011"] = "L"
+	m["001100"] = "M"
+	m["001101"] = "N"
+	m["001110"] = "O"
+	m["001111"] = "P"
+	m["010000"] = "Q"
+	m["010001"] = "R"
+	m["010010"] = "S"
+	m["010011"] = "T"
+	m["010100"] = "U"
+	m["010101"] = "V"
+	m["010110"] = "W"
+	m["010111"] = "X"
+	m["011000"] = "Y"
+	m["011001"] = "Z"
+
+	fmt.Println("Enter text to decode")
+	toDecode := ""
 	decoded := ""
+	_, _ = fmt.Scan(&toDecode)
+	for i := 0; i < len(toDecode); i = i + 6 {
+		temp := toDecode[i : i+6]
+		decoded = decoded + m[temp]
+	}
 	return decoded
 }
